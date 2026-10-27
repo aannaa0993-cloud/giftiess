@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff9ef">
+  <title>gifty — make someone's day</title>
+
+  <!-- Hubungkan file CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Halaman utama website -->
+  <main class="root" id="mainContent">
+    <div class="wrap">
+      <header class="nav">
+        <a class="logo" href="#" aria-label="Gifty beranda">
+          <span class="logo-icon">✳</span> gifty<span class="logo-dot">.</span>
+        </a>
+
+        <div class="navright">
+          <button class="navlink" id="howNav" type="button">Cara kerja</button>
+          <button class="button" id="createNav" type="button">Buat hadiah ↗</button>
+        </div>
+      </header>
+
+      <!-- Bagian pembuka -->
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="kicker">✦ small gifts, big feelings</span>
+          <h1>Make a little<br>magic <em>for them.</em></h1>
+          <p>
+            Bikin hadiah digital yang terasa personal. Pilih template,
+            tambahkan foto, lagu dan kata-kata kamu, lalu bagikan kejutan
+            kecil itu lewat satu link.
+          </p>
+
+          <div class="hero-actions">
+            <button class="button" id="browseBtn" type="button">
+              Jelajahi template ↓
+            </button>
+            <button class="button secondary" id="surpriseBtn" type="button">
+              Pilihkan untukku ✧
+            </button>
+          </div>
+        </div>
+
+        <!-- Ilustrasi dekoratif -->
+        <div class="hero-art" aria-label="Ilustrasi kartu hadiah pastel">
+          <div class="art-stack">
+            <div class="art-card one"></div>
+            <div class="art-card two"></div>
+            <div class="art-card three">🎁</div>
+          </div>
+          <span class="float f1">made with love ♡</span>
+          <span class="float f2">just for you ✦</span>
+        </div>
+      </section>
+
+      <!-- Galeri template -->
+      <section class="gallery-section" id="gallery">
+        <div class="section-head">
+          <div>
+            <h2>Find your kind of gift.</h2>
+            <p>Template kecil untuk momen yang berbeda-beda.</p>
+          </div>
+          <span class="pill" id="templateCount">8 TEMPLATES</span>
+        </div>
+
+        <div class="filters" id="filters" aria-label="Filter template">
+          <button class="filter active" type="button" data-filter="all">
+            Semua hadiah
+          </button>
+          <button class="filter" type="button" data-filter="love">
+            For someone
+          </button>
+          <button class="filter" type="button" data-filter="birthday">
+            Birthday
+          </button>
+          <button class="filter" type="button" data-filter="friends">
+            Besties
+          </button>
+          <button class="filter" type="button" data-filter="cute">
+            Just because
+          </button>
+        </div>
+
+        <!-- Kartu template dibuat melalui JavaScript -->
+        <div class="template-grid" id="templateGrid"></div>
+      </section>
+
+      <!-- Penjelasan cara kerja -->
+      <section class="how" id="how">
+        <h2>Three tiny steps.</h2>
+
+        <div class="steps">
+          <article class="step">
+            <b>01</b>
+            <h3>Pilih template</h3>
+            <p>
+              Mulai dari surat, album foto, birthday cake, sampai mini
+              universe. Pilih yang paling cocok dengan orangnya.
+            </p>
+          </article>
+
+          <article class="step">
+            <b>02</b>
+            <h3>Isi dengan ceritamu</h3>
+            <p>
+              Tambahkan nama, ucapan, foto, dan tautan lagu yang punya arti
+              khusus buat kalian.
+            </p>
+          </article>
+
+          <article class="step">
+            <b>03</b>
+            <h3>Kirim kejutan</h3>
+            <p>
+              Generate link personal dan kirim. Mereka bisa membuka halaman
+              hadiah dari browser mereka.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>© 2026 gifty. Made for the people you love.</span>
+        <span>A little corner for thoughtful surprises ✦</span>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Modal untuk membuat hadiah -->
+  <div
+    class="modal"
+    id="editorModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="editorTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-box">
+      <div class="modal-head">
+        <h2 id="editorTitle">Make it yours ✦</h2>
+        <button
+          class="close"
+          id="closeEditor"
+          type="button"
+          aria-label="Tutup"
+        >×</button>
+      </div>
+
+      <div class="editor">
+        <!-- Form pembuatan hadiah -->
+        <form id="giftForm">
+          <div class="form-field">
+            <label for="recipient">Nama penerima</label>
+            <input
+              id="recipient"
+              maxlength="70"
+              placeholder="Untuk siapa hadiah ini?"
+              required
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="sender">Nama pengirim</label>
+            <input
+              id="sender"
+              maxlength="70"
+              placeholder="Dari siapa?"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="headline">Judul kecil</label>
+            <input
+              id="headline"
+              maxlength="90"
+              placeholder="contoh: you're my favorite person"
+              required
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="message">Ucapan / pesan</label>
+            <textarea
+              id="message"
+              maxlength="1600"
+              placeholder="Tulis ucapanmu di sini..."
+              required
+            ></textarea>
+            <div class="help">
+              <span id="charCount">0</span>/1600 karakter
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="photo">Foto (opsional, maks. 3 foto)</label>
+            <input id="photo" type="file" accept="image/*" multiple>
+            <div class="help">
+              Bisa pilih 1 hingga 3 foto (total ukuran maks. 600 KB).
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="song">Link lagu / YouTube (opsional)</label>
+            <input
+              id="song"
+              type="url"
+              placeholder="https://www.youtube.com/watch?v=..."
+            >
+            <div class="help">
+              Masukkan link YouTube agar lagu bisa langsung diputar di dalam kartu!
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="accent">Warna aksen</label>
+            <select id="accent">
+              <option value="#f5c957">Butter yellow</option>
+              <option value="#f3c7d0">Soft pink</option>
+              <option value="#c8d9bf">Sage green</option>
+              <option value="#d9c9ef">Lilac dream</option>
+              <option value="#f0c5a2">Peachy</option>
+            </select>
+          </div>
+
+          <button type="submit" class="button submit-button">
+            Generate hadiah &amp; link ↗
+          </button>
+
+          <p class="help">
+            Demo ini membuat link dari data yang kamu isi di browser.
+            Belum ada akun, database, atau penyimpanan cloud.
+          </p>
+
+          <!-- Link muncul setelah hadiah berhasil dibuat -->
+          <div class="link-result" id="linkResult" hidden>
+            <label for="generatedLink">Link hadiah kamu</label>
+            <input id="generatedLink" readonly>
+            <p class="help">
+              Agar bisa dibuka orang lain, website harus sudah
+              dipublikasikan terlebih dahulu.
+            </p>
+          </div>
+        </form>
+
+        <!-- Preview langsung -->
+        <div class="preview-column">
+          <div class="preview-label">Live preview</div>
+
+          <article class="preview" id="livePreview">
+            <div class="prev-tag" id="prevTag">a little surprise</div>
+            <div class="prev-emoji" id="prevEmoji">🎁</div>
+            <h3 id="prevTitle">A little gift for you</h3>
+
+            <!-- Slider Foto Preview -->
+            <div class="photo-slider" id="prevSlider" hidden>
+              <button class="slider-btn prev" id="prevBtnPrev" type="button">‹</button>
+              <img id="prevPhoto" alt="Foto pilihan">
+              <button class="slider-btn next" id="prevBtnNext" type="button">›</button>
+              <div class="slider-dots" id="prevDots"></div>
+            </div>
+
+            <div class="prev-message" id="prevMessage">
+              Your lovely message will appear here.
+            </div>
+
+            <div class="prev-sign" id="prevSign">— with love</div>
+          </article>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="button secondary"
+              id="previewOpen"
+            >
+              Preview hadiah ↗
+            </button>
+
+            <button
+              type="button"
+              class="button secondary"
+              id="copyLink"
+              disabled
+            >
+              Salin link
+            </button>
+          </div>
+
+          <p class="song-status" id="linkStatus">
+            Preview akan berubah saat kamu mengisi form.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tampilan hadiah interaktif ketika link dibuka -->
+  <section class="public-view" id="publicView" hidden>
+    <button class="back-home" id="backHome" type="button">
+      ← ke gifty
+    </button>
+
+    <!-- Kontainer Animasi Dinamis -->
+    <div class="floating-container" id="floatingContainer" aria-hidden="true"></div>
+
+    <div class="public-inner">
+      <div class="gift-unboxing-wrapper" id="envelopeWrapper">
+        <!-- Amplop Interaktif -->
+        <div class="envelope" id="envelopeCard" role="button" tabindex="0" aria-label="Buka amplop kejutan">
+          <div class="envelope-flap"></div>
+          <div class="envelope-pocket"></div>
+          
+          <div class="envelope-sticker">
+            <span class="sticker-emoji" id="publicEmoji">🎁</span>
+            <span class="sticker-text">Tekan untuk buka ✨</span>
+          </div>
+
+          <!-- Surat / Kartu di dalam amplop -->
+          <article class="public-card" id="publicCard">
+            <div class="prev-tag" id="publicTag">A LITTLE SURPRISE</div>
+
+            <p class="public-recipient" id="publicRecipient"></p>
+            <h2 id="publicTitle">A little gift for you</h2>
+
+            <!-- Slider Foto Publik -->
+            <div class="photo-slider" id="publicSlider" hidden>
+              <button class="slider-btn prev" id="pubBtnPrev" type="button">‹</button>
+              <img id="publicPhoto" alt="Foto hadiah">
+              <button class="slider-btn next" id="pubBtnNext" type="button">›</button>
+              <div class="slider-dots" id="publicDots"></div>
+            </div>
+
+            <p class="public-message" id="publicMessage"></p>
+
+            <!-- Wadah Pemutar Musik YouTube / Link -->
+            <div class="media-player-box" id="mediaPlayerBox" hidden>
+              <div id="youtubeContainer"></div>
+              <a
+                id="publicSong"
+                class="song-button"
+                target="_blank"
+                rel="noopener noreferrer"
+                hidden
+              >
+                ♫ Buka link lagu pilihan ↗
+              </a>
+            </div>
+
+            <p class="public-sign" id="publicSign"></p>
+          </article>
+        </div>
+
+        <div class="replay-bar" id="replayBar" hidden>
+          <button class="music-btn" id="publicReplay" type="button">
+            Tutup & Buka Lagi ✦
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notifikasi -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Jalankan JavaScript setelah selesai -->
+  <script src="script.js" defer></script>
+</body>
+</html>
